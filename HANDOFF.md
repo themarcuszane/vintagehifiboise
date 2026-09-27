@@ -15,7 +15,7 @@ Updated September 27, 2026. Prepared for a fresh review of the website and its d
 | Audit | [AUDIT.md](AUDIT.md) | Test results, limits, and content gaps |
 | Gear editor | [tools/gear-editor.html](tools/gear-editor.html) | Local-only inventory editor |
 
-The GitHub repo was empty before this project. The previous public site lived directly in S3; its source was not in another known repo. A copy of those original live files was archived separately before replacement. There is no automatic deployment from GitHub. A manual, approval-gated workflow is staged but cannot run until an AWS OIDC role is created.
+The GitHub repo was empty before this project. The previous public site lived directly in S3; its source was not in another known repo. A copy of those original live files was archived separately before replacement. GitHub checks each push and pull request, but never deploys automatically. A manual, approval-gated deployment is staged but cannot run until an AWS OIDC role is created.
 
 ## How the site works
 

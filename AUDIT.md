@@ -16,7 +16,7 @@
 2. **Inventory:** `inventory.json` is empty. Add only real, approved gear and photos. The local editor is available at `tools/gear-editor.html`.
 3. **Business claims:** Confirm owner story, the newly stated all-brand repair and free-estimate policy, hero-image accuracy, and visit policy with the business before strengthening site copy or structured data.
 4. **Search:** Titles, descriptions, canonical URLs, robots rules, and sitemap exist. Submit the sitemap in Google Search Console and ensure verified business listings match the site. Do not add unverified address, hours, phone, or `LocalBusiness` details.
-5. **Deployment:** GitHub's `production` environment requires owner review from `main`; the manual workflow is staged. An IAM administrator must establish its OIDC role before it can be used. Until then, use the documented manual deployment process.
+5. **Deployment:** GitHub validates pushes and pull requests without deploying them. Its `production` environment requires owner review from `main` for manual deployment. An IAM administrator must establish the OIDC role before that path can be used. Until then, use the documented manual deployment process.
 
 ## Follow-up verification
 
