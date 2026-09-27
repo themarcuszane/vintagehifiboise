@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gear Editor | Boise Hi-Fi Stereo</title>
+  <style>
+    :root { color-scheme: dark; font-family: Arial, Helvetica, sans-serif; background: #0c1216; color: #f5f1e8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { width: min(1080px, calc(100% - 32px)); margin: 40px auto 80px; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 8px; }
+    h2 { margin: 0 0 18px; }
+    p { color: #c7c8c5; line-height: 1.55; }
+    .eyebrow { color: #52e3e7; font-size: .8rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .panel { background: #152027; border: 1px solid #34434a; border-radius: 12px; padding: 24px; margin-top: 22px; }
+    .toolbar, .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .toolbar { margin-top: 20px; }
+    button, .file-label { border: 1px solid #52e3e7; border-radius: 7px; background: #52e3e7; color: #071216; padding: 10px 15px; font: inherit; font-weight: 800; cursor: pointer; }
+    button.secondary, .file-label { background: transparent; color: #f5f1e8; border-color: #8fa6ac; }
+    button.danger { border-color: #ff8959; color: #ffb596; background: transparent; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, .file-label:focus-within { outline: 3px solid #52e3e7; outline-offset: 3px; }
+    input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    label { display: block; font-weight: 700; }
+    label span { display: block; margin-bottom: 6px; }
+    input:not([type=checkbox]):not([type=file]), textarea, select { width: 100%; padding: 10px 12px; background: #0c1216; color: #f5f1e8; border: 1px solid #64757b; border-radius: 6px; font: inherit; }
+    textarea { min-height: 90px; resize: vertical; }
+    .wide { grid-column: 1 / -1; }
+    .checkbox { display: flex; gap: 10px; align-items: center; }
+    .checkbox span { margin: 0; }
+    .checkbox input { width: 18px; height: 18px; }
+    .actions { margin-top: 20px; }
+    #message { min-height: 24px; font-weight: 700; }
+    #message.error { color: #ffb596; }
+    #message.success { color: #52e3e7; }
+    #gear-list { list-style: none; padding: 0; margin: 0; }
+    #gear-list li { border-top: 1px solid #34434a; padding: 15px 0; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+    #gear-list strong { display: block; }
+    #gear-list small { color: #b6b5b2; }
+    @media (max-width: 650px) { .form-grid { grid-template-columns: 1fr; } .wide { grid-column: auto; } #gear-list li { align-items: flex-start; flex-direction: column; } }
+  </style>
+  <script src="gear-editor.js" defer></script>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Local editing tool</div>
+    <h1>Gear editor</h1>
+    <p>Open the site's <code>inventory.json</code>, add or edit gear, then download a replacement file. Nothing uploads or publishes from this page. Keep photos in the repo's <code>gear/</code> folder and enter paths such as <code>/gear/marantz-2230.jpg</code>.</p>
+    <div class="toolbar">
+      <label class="file-label">Open inventory.json <input id="open-file" type="file" accept=".json,application/json"></label>
+      <button id="download" type="button">Download inventory.json</button>
+    </div>
+    <p id="message" role="status" aria-live="polite">No file loaded. You can start a new inventory or open the existing one.</p>
+
+    <section class="panel" aria-labelledby="form-heading">
+      <h2 id="form-heading">Add gear</h2>
+      <form id="gear-form">
+        <div class="form-grid">
+          <label><span>Brand *</span><input name="brand" required autocomplete="off"></label>
+          <label><span>Model *</span><input name="model" required autocomplete="off"></label>
+          <label><span>Category</span><input name="category" placeholder="Receiver, speaker, turntable…"></label>
+          <label><span>Price</span><input name="price" placeholder="$450"></label>
+          <label><span>Status</span><select name="status"><option value="available">Available</option><option value="sold">Sold</option></select></label>
+          <label><span>Date added</span><input name="date_added" type="date"></label>
+          <label class="wide"><span>Photo path</span><input name="image" placeholder="/gear/model-photo.jpg"></label>
+          <label class="wide"><span>Condition</span><textarea name="condition" placeholder="Describe cosmetic and operating condition"></textarea></label>
+          <label class="wide"><span>Notes</span><textarea name="notes" placeholder="Service history, included accessories, or other details"></textarea></label>
+          <label class="checkbox wide"><input name="featured" type="checkbox"><span>Show on Featured Gear while available</span></label>
+        </div>
+        <div class="actions"><button type="submit">Save item</button><button id="cancel-edit" class="secondary" type="button" hidden>Cancel edit</button></div>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="list-heading">
+      <h2 id="list-heading">Items <span id="item-count">(0)</span></h2>
+      <p id="empty-list">No items loaded yet.</p>
+      <ul id="gear-list"></ul>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,77 @@
+name: Deploy website
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Check site files
+        run: |
+          bash -n scripts/deploy.sh
+          node --check assets/site.js
+          node --check tools/gear-editor.js
+          python3 - <<'PY'
+          import json
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          inventory = json.loads(Path('inventory.json').read_text())
+          if not isinstance(inventory, list):
+              raise SystemExit('inventory.json must be an array')
+          ids = [item['id'] for item in inventory]
+          if len(ids) != len(set(ids)):
+              raise SystemExit('inventory.json contains duplicate IDs')
+          for item in inventory:
+              if not item.get('brand') or not item.get('model') or item.get('status') not in ('available', 'sold'):
+                  raise SystemExit('Each inventory item needs brand, model, and valid status')
+              image = item.get('image', '')
+              if image and not Path(image.lstrip('/')).is_file():
+                  raise SystemExit(f'Photo missing from repository: {image}')
+          config = json.loads(Path('site-config.json').read_text())
+          if not isinstance(config, dict):
+              raise SystemExit('site-config.json must be an object')
+          ET.parse('sitemap.xml')
+          PY
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Check deployment role
+        env:
+          ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+        run: |
+          if [[ -z "$ROLE_ARN" ]]; then
+            echo 'Set the AWS_DEPLOY_ROLE_ARN repository variable before running this workflow.' >&2
+            exit 1
+          fi
+      - name: Assume AWS deployment role
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-west-2
+      - name: Preview upload
+        run: scripts/deploy.sh --dry-run
+      - name: Back up and deploy
+        env:
+          SITE_BACKUP_DIR: ${{ runner.temp }}/site-backups
+        run: scripts/deploy.sh
+      - name: Save pre-deploy site backup
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: pre-deploy-site-backup
+          path: ${{ runner.temp }}/site-backups
+          if-no-files-found: ignore
+          retention-days: 30
