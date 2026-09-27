@@ -30,4 +30,4 @@ This restores overwritten files but leaves any new keys in place. Remove unwante
 
 ## Deployment boundaries
 
-The upload script includes `*.html`, `assets/*`, `hero.jpg`, `inventory.json`, `site-config.json`, `robots.txt`, and `sitemap.xml`. It excludes repository internals and documentation. If a new image directory or asset type is added, update the script's include rules before deploying it.
+The upload script includes `*.html`, `assets/*`, `hero.jpg`, `favicon.svg`, `inventory.json`, `site-config.json`, `robots.txt`, and `sitemap.xml`. It excludes repository internals and documentation. If a new image directory or asset type is added, update the script's include rules before deploying it.

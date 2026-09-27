@@ -23,6 +23,7 @@ sync_args=(
   --include '*.html'
   --include 'assets/*'
   --include 'hero.jpg'
+  --include 'favicon.svg'
   --include 'inventory.json'
   --include 'site-config.json'
   --include 'robots.txt'
