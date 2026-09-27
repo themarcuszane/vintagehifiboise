@@ -1,6 +1,6 @@
 # Boise Hi-Fi Stereo website
 
-A dependency-free static site for [www.vintagehifiboise.com](https://www.vintagehifiboise.com/). It is live from S3 through CloudFront. GitHub stores the source; pushes do not automatically deploy it. See [DEPLOYMENT.md](DEPLOYMENT.md) for the verified release and rollback process.
+A dependency-free static site for [www.vintagehifiboise.com](https://www.vintagehifiboise.com/). It is live from S3 through CloudFront. GitHub stores the source; pushes do not automatically deploy it. See [HANDOFF.md](HANDOFF.md) for reviewer context and [DEPLOYMENT.md](DEPLOYMENT.md) for the verified release and rollback process.
 
 ## Before the next content release
 
