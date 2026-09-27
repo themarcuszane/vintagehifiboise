@@ -6,6 +6,8 @@
 
 The first version from this repository was uploaded on September 26, 2026 from commit `80e47b6`. CloudFront invalidation `I85GX09BLF93P8I8KSLUIIGC4C` completed. The prior site files were backed up locally before that upload.
 
+On September 27, 2026, commit `7d32092` published the repair-page contact fallback and shared JavaScript. CloudFront invalidation `IEG8MQQT3V5ONS6IG6XLVWWOTQ` completed. The pre-release S3 backup is at `work/backups/20260927T181727Z` in the parent project workspace, and an archived copy is kept with the project outputs. The live repair HTML and JavaScript matched the repository bytes after release.
+
 ## Release
 
 1. Confirm `site-config.json`, `inventory.json`, photos, and page copy contain only approved public information.

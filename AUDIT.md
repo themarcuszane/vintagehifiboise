@@ -22,6 +22,8 @@
 
 The shared release validator passes for the current repo. The repair page was tested locally with no email and with a browser-only mocked email; the test address was neither saved nor published. The mobile navigation opened correctly, and the updated repair page had no automated WCAG A/AA violations. Image-background contrast still needs human review.
 
+The repair-page fallback and shared JavaScript were released from commit `7d32092`. CloudFront invalidation completed, and both live files matched the repository bytes. The pre-release S3 backup was retained.
+
 ## Limits
 
-No checkout, lead form, analytics, or real inventory flow was tested because those features or content are not present. Automated accessibility and one synthetic performance run cannot replace human accessibility review or real-user metrics. No live-site files were changed by this audit.
+No checkout, lead form, analytics, or real inventory flow was tested because those features or content are not present. Automated accessibility and one synthetic performance run cannot replace human accessibility review or real-user metrics.

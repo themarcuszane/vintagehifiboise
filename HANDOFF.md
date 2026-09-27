@@ -34,6 +34,7 @@ The GitHub repo was empty before this project. The previous public site lived di
 5. Uploaded the site to S3, completed CloudFront invalidation, and verified the homepage, previously broken routes, assets, JSON, and favicon load on the public domain.
 6. Added a deployment script with an AWS account check, local backup, targeted upload set, and cache invalidation. Its dry run completed successfully.
 7. Added a local gear editor, an excluded contact-page draft, an audit, and a manual GitHub deployment workflow. Configured the GitHub `production` environment to require owner review from `main`. AWS IAM permissions are still needed for the role.
+8. Added a shared release validator and a repair-page fallback that avoids pointing visitors to an absent email address. Published that repair page and JavaScript from commit `7d32092`; CloudFront invalidation completed and live bytes matched the source. The public email and inventory remain blank.
 
 ## Reviewer priorities
 
