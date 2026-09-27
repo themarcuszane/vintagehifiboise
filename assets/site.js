@@ -21,6 +21,8 @@ async function loadContact() {
       link.href = `mailto:${config.email}`;
       link.textContent = config.email;
       container.append(link);
+      const repairStatus = document.querySelector('#repair-contact-status');
+      if (repairStatus) repairStatus.replaceChildren('To start a repair inquiry, email us at ', link.cloneNode(true), '.');
     }
     if (config.phone) {
       const link = document.createElement('a');

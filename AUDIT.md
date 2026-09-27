@@ -12,11 +12,15 @@
 
 ## Highest-priority gaps
 
-1. **Contact:** `site-config.json` has no public email, phone, address, or hours. Visitors currently have no reliable inquiry path. A concurrent update to `repair.html` now asks visitors to email, but no address appears in its footer. Add a verified public email before deploying that page. Confirm other public details and whether visits require an appointment before publishing a contact page. `drafts/contact.html` is excluded from deployment until reviewed.
+1. **Contact:** `site-config.json` has no public email, phone, address, or hours. Visitors currently have no reliable inquiry path. The repair page now shows an honest holding message while email is blank and automatically shows a mail link once a verified address is configured. Confirm other public details and whether visits require an appointment before publishing a contact page. `drafts/contact.html` is excluded from deployment until reviewed.
 2. **Inventory:** `inventory.json` is empty. Add only real, approved gear and photos. The local editor is available at `tools/gear-editor.html`.
 3. **Business claims:** Confirm owner story, the newly stated all-brand repair and free-estimate policy, hero-image accuracy, and visit policy with the business before strengthening site copy or structured data.
 4. **Search:** Titles, descriptions, canonical URLs, robots rules, and sitemap exist. Submit the sitemap in Google Search Console and ensure verified business listings match the site. Do not add unverified address, hours, phone, or `LocalBusiness` details.
 5. **Deployment:** GitHub's `production` environment requires owner review from `main`; the manual workflow is staged. An IAM administrator must establish its OIDC role before it can be used. Until then, use the documented manual deployment process.
+
+## Follow-up verification
+
+The shared release validator passes for the current repo. The repair page was tested locally with no email and with a browser-only mocked email; the test address was neither saved nor published. The mobile navigation opened correctly, and the updated repair page had no automated WCAG A/AA violations. Image-background contrast still needs human review.
 
 ## Limits
 

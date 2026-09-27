@@ -7,10 +7,12 @@ A dependency-free static site for [www.vintagehifiboise.com](https://www.vintage
 1. Fill in `site-config.json` with public email, phone, address, and hours. Leave any field blank if it should not appear. Confirm whether visitors may walk in or need an appointment, then make that clear on the site.
 2. Confirm the copy on `about.html`, `owners.html`, and `repair.html`, especially what repair work is actually offered. Add owner names and photos if desired.
 3. Add real gear to `inventory.json`. No example inventory is published by default. The offline editor at `tools/gear-editor.html` can prepare the JSON without hand-editing it.
-4. Test every link and page on desktop and mobile. Use `scripts/deploy.sh --dry-run` to review the upload set before release.
+4. Run `python3 scripts/validate_site.py`, test the pages on desktop and mobile, and use `scripts/deploy.sh --dry-run` to review the upload set before release.
 5. Submit `sitemap.xml` in Google Search Console and update the business's public listings with matching verified details.
 
 The published `site-config.json` currently has no contact details and `inventory.json` has no items. Do not invent business information or gear to fill these gaps.
+
+The repair page displays a holding message while the public email is blank. Once a verified address is added to `site-config.json`, it shows an email link automatically. No test address is committed or published.
 
 ## Updating gear
 

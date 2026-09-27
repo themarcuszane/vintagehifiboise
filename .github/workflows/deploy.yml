@@ -16,28 +16,7 @@ jobs:
           bash -n scripts/deploy.sh
           node --check assets/site.js
           node --check tools/gear-editor.js
-          python3 - <<'PY'
-          import json
-          import xml.etree.ElementTree as ET
-          from pathlib import Path
-
-          inventory = json.loads(Path('inventory.json').read_text())
-          if not isinstance(inventory, list):
-              raise SystemExit('inventory.json must be an array')
-          ids = [item['id'] for item in inventory]
-          if len(ids) != len(set(ids)):
-              raise SystemExit('inventory.json contains duplicate IDs')
-          for item in inventory:
-              if not item.get('brand') or not item.get('model') or item.get('status') not in ('available', 'sold'):
-                  raise SystemExit('Each inventory item needs brand, model, and valid status')
-              image = item.get('image', '')
-              if image and not Path(image.lstrip('/')).is_file():
-                  raise SystemExit(f'Photo missing from repository: {image}')
-          config = json.loads(Path('site-config.json').read_text())
-          if not isinstance(config, dict):
-              raise SystemExit('site-config.json must be an object')
-          ET.parse('sitemap.xml')
-          PY
+          python3 scripts/validate_site.py
 
   deploy:
     needs: validate

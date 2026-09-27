@@ -38,7 +38,7 @@ The GitHub repo was empty before this project. The previous public site lived di
 ## Reviewer priorities
 
 1. **Business facts:** Confirm name, actual location, contact details, opening hours, appointment policy, owner names, and whether the hero image accurately represents the business.
-2. **Repair claims:** A concurrent update to `repair.html` states all brands are accepted, estimates are free, and inquiries start by email. Confirm these claims with the business and add a public email to `site-config.json` before deploying that page; the footer currently has no address.
+2. **Repair claims:** A concurrent update to `repair.html` states all brands are accepted and estimates are free. Confirm these claims with the business. The page now displays a holding message while email is blank and an email link once a verified address is configured; no contact address has been invented.
 3. **Inventory:** Add real models, prices if desired, condition notes, photos, and availability. Check that new, featured, and sold views reflect real stock.
 4. **Content and design:** Review copy for the shop's voice, mobile legibility, image contrast, and the contact path. The current site cannot receive inquiries until public contact information is added.
 5. **Search and operations:** Verify business listings, submit the sitemap in Google Search Console, approve the contact-page draft only after confirming real details, and have an AWS IAM administrator review and create the narrowly scoped GitHub deployment role.

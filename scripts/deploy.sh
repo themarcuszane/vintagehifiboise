@@ -18,6 +18,8 @@ if [[ "${1:-}" != "" && "${1:-}" != "--dry-run" ]]; then
   exit 2
 fi
 
+python3 "$repo_root/scripts/validate_site.py"
+
 account="$(aws sts get-caller-identity "${profile_args[@]}" --query Account --output text)"
 if [[ "$account" != "$expected_account" ]]; then
   echo "AWS account $account does not match expected account $expected_account." >&2

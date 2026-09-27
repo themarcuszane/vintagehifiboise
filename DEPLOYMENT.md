@@ -9,7 +9,7 @@ The first version from this repository was uploaded on September 26, 2026 from c
 ## Release
 
 1. Confirm `site-config.json`, `inventory.json`, photos, and page copy contain only approved public information.
-2. Run `node --check assets/site.js`, `jq empty inventory.json site-config.json`, and `xmllint --noout sitemap.xml`.
+2. Run `python3 scripts/validate_site.py` and `node --check assets/site.js`. The shared validator checks JSON, gear IDs and photos, local page references, and sitemap entries; the deployment script runs it automatically.
 3. Preview locally and test the menu and all pages.
 4. Run `scripts/deploy.sh --dry-run` and review the exact upload list.
 5. Run `scripts/deploy.sh`. It checks the AWS account, saves a timestamped local backup, uploads only site files without deleting existing keys, and waits for the CloudFront invalidation to complete.
@@ -19,7 +19,7 @@ The script needs AWS CLI access to account `502882675592`. The `kubaki` profile 
 
 ## Reviewed GitHub deployment (not active yet)
 
-`.github/workflows/deploy.yml` is a **manual** `workflow_dispatch` workflow; pushes alone never deploy. Its validation job checks script and JavaScript syntax, JSON structure, unique gear IDs, referenced photos, and sitemap XML. The deploy job waits for approval in the GitHub `production` environment, which requires review by `themarcuszane` and only permits `main`. After approval, it uses short-lived AWS OIDC credentials, previews the upload, runs the same deployment script, and retains a pre-deploy S3 backup as a GitHub artifact for 30 days. Do not run it until the following prerequisite is complete.
+`.github/workflows/deploy.yml` is a **manual** `workflow_dispatch` workflow; pushes alone never deploy. Its validation job runs the same site validator as manual releases, plus script and JavaScript syntax checks. The deploy job waits for approval in the GitHub `production` environment, which requires review by `themarcuszane` and only permits `main`. After approval, it uses short-lived AWS OIDC credentials, previews the upload, runs the same deployment script, and retains a pre-deploy S3 backup as a GitHub artifact for 30 days. Do not run it until the following prerequisite is complete.
 
 An AWS IAM administrator must create or verify the GitHub OIDC provider `token.actions.githubusercontent.com` in account `502882675592` with audience `sts.amazonaws.com`, then create a deploy role using `ops/github-deploy-trust-policy.json` and attach `ops/github-deploy-permissions-policy.json`. Review these policies against the account before applying them. The trust policy limits assumption to this repository's `production` environment; the environment limits the branch and requires review. Add the resulting role ARN as repository Actions variable `AWS_DEPLOY_ROLE_ARN`. Do not use a long-lived access key. The currently available `kubaki` profile can deploy the site but was denied IAM OIDC-provider listing, so this role was **not** created and the variable is **not** set. No GitHub deployment has been run.
 
