@@ -1,14 +1,16 @@
 # Boise Hi-Fi Stereo website
 
-A dependency-free static site for `www.vintagehifiboise.com`. Serve or upload the files in this repository from the web root. The site uses `hero.jpg` from the existing public website.
+A dependency-free static site for [www.vintagehifiboise.com](https://www.vintagehifiboise.com/). It is live from S3 through CloudFront. GitHub stores the source; pushes do not automatically deploy it. See [DEPLOYMENT.md](DEPLOYMENT.md) for the verified release and rollback process.
 
-## Before publishing
+## Before the next content release
 
 1. Fill in `site-config.json` with public email, phone, address, and hours. Leave any field blank if it should not appear. Confirm whether visitors may walk in or need an appointment, then make that clear on the site.
 2. Confirm the copy on `about.html`, `owners.html`, and `repair.html`, especially what repair work is actually offered. Add owner names and photos if desired.
 3. Add real gear to `inventory.json`. No example inventory is published by default.
-4. Test every link and page on desktop and mobile. Upload all files, including `hero.jpg`, `assets/`, `robots.txt`, and `sitemap.xml`.
-5. After the site is live, submit `sitemap.xml` in Google Search Console and update the business's public listings with matching verified details.
+4. Test every link and page on desktop and mobile. Use `scripts/deploy.sh --dry-run` to review the upload set before release.
+5. Submit `sitemap.xml` in Google Search Console and update the business's public listings with matching verified details.
+
+The published `site-config.json` currently has no contact details and `inventory.json` has no items. Do not invent business information or gear to fill these gaps.
 
 ## Updating gear
 
@@ -36,6 +38,6 @@ The 12 most recent `status: "available"` items appear in New Arrivals. `featured
 
 From the repository root, run `python3 -m http.server 8000` and open `http://localhost:8000/`. Opening HTML files directly from disk will not load the JSON data because browsers restrict local `fetch` requests.
 
-## Deployment note
+## Deployment
 
-The GitHub repository was empty when this version was created. The live site appears to be served separately; merely changing GitHub files will not update it until the hosting workflow is connected or the static files are uploaded. Verify the current hosting configuration before replacing anything live.
+Run `scripts/deploy.sh --dry-run` to preview changes, then `scripts/deploy.sh` to back up the current bucket, upload site files, and refresh CloudFront. The script uses the verified `kubaki` AWS profile by default; set `AWS_PROFILE` if another authorized profile is needed. It does not delete old objects or upload repository internals and documentation. See [DEPLOYMENT.md](DEPLOYMENT.md) for hosting details and recovery steps.
